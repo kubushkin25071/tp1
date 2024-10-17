@@ -1,8 +1,10 @@
-#include <iostream>
 
-using namespace std;
+#include "keeper.h"
 
 int main(){
-	cout << "Hello world!" << endl;
+	setlocale(LC_ALL, "Russian");
+	system("cls");
+	cout << "Начать работу - 1" << endl;
+	cout << "Выйти - 0" << endl;
 	return 0;
 }
