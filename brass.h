@@ -8,20 +8,20 @@ private:
 	string producer;		// производитель
 	string defects;			// дефекты
 public:
-	Brass() {} // конструктор без параметров
-	Brass(string producer, string defects, string name, int cost, string fio) : Orchestra(name, cost, fio), producer(producer), defects(defects) {} //конструктор с параметрами
-	Brass(const Brass& scr) : Orchestra(scr.name, scr.cost, scr.fio), producer(scr.producer), defects(scr.defects) {} // конструктор копирования
-	~Brass() {}
+	Brass(); // конструктор без параметров
+	Brass(const string& producer, const string& defects, const string& name, const int& count, const string& fio, const int& cost);//конструктор с параметрами
+	Brass(const Brass& scr); // конструктор копирования
+	~Brass();
 
-	void print1(ostream& os) const override {			// для вывода в консоль
-		Orchestra::print1(os);
-		os << "Производитель:" << producer << endl;
-		os << "Дефекты:" << defects << endl;
-	}
-	void print2(ostream& os) const override {			// для вывода в файл
-		Orchestra::print2(os);
-		os << producer << endl;
-		os << defects << endl;
-	}
+	void set_producer(string producer);
+	string get_producer();
+
+	void set_defects(string defects);
+	string get_defects();
+
+	void display() override;
+	void change_info() override;
+	void save_to_file(ostream&) override;
+	void load_from_file(istream&) override;
 };
 

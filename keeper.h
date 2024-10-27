@@ -1,29 +1,54 @@
 #pragma once
-#include <vector> // массив
-#include <fstream>	// ввод-вывод в файл
 #include "brass.h"	// трубы
 #include "drum.h"	// барабаны
 #include "string.h" // струнные
 
 
-/* Класс-контейнер*/
-class Keeper{
-private:
-	vector<Drum*> Drums;
-	vector<String*> Strings;
-	vector<Brass*> Brasses;
-public:
-	Keeper();	// конструктор по-умолчанию
-	~Keeper();	// деструктор
-
-	Read_file(string file_name);
-	Write_file(string file_name);
-
-	Add_instrument(string toi, string name, int cost, string fio, string tp1, string tp2);		//tp1 и tp2 - поля, которые имеют различное назначение у параметров
-	Delete_instrument(string toi, int index);
-
-	vector<Drum*> GetDrums();
-	vector<String*> GetStrings();
-	vector<Brass*> GetBrasses();
+/* Структура элемента*/
+struct Element {
+    Element* next;
+    Orchestra* data;
 };
 
+/* Класс-контейнер*/
+class Keeper {
+    /*Данные будут храниться в виде списка*/
+private:
+    Element* head;
+    Element* tail;
+    int count;
+
+public:
+    Keeper(); // Конструктор без параметров
+    Keeper(Element* h, Element* t, int c); //Конструктор с параметрами
+    Keeper(Keeper& other); //Конструктор копирования
+    ~Keeper(); //Деструктор
+
+    void delete_head(); // удалить сначала
+    void delete_all();  //удалить всё
+    void display_keeper();  //вывод на экран
+    int get_count();    //получить длину
+    Element* get_head();    //получить голову
+    Element* get_tail();    // получить хвост
+
+    // добавить элемент 
+    Keeper& operator++(); // в начало
+    friend Keeper& operator++(Keeper& K, int);  //в конец
+
+    // удалить элемент
+    Keeper& operator--(int);    //с начала
+    friend Keeper& operator--(Keeper& K);   //с конца
+
+    // создать новый элемент
+    void add(Orchestra* mover);
+    void add_to_start(Orchestra* mover);
+
+    // удалить/добавить элемент
+    Keeper& delete_element(int n);
+    Keeper& edit_element(int n);
+
+    //сохранение в файл
+    void save_to_file(const string& filename);
+    void load_from_file(const string& filename);
+
+};

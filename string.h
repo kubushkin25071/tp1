@@ -8,20 +8,20 @@ private:
 	string producer;	// производитель
 	string description;	// краткое описание
 public:
-	String() {} // конструктор без параметров
-	String(string producer, string description, string name, int cost, string fio) : Orchestra(name, cost, fio), producer(producer), description(description) {} //конструктор с параметрами
-	String(const String& scr) : Orchestra(scr.name, scr.cost, scr.fio), producer(scr.producer), description(scr.description) {} // конструктор копирования
-	~String() {}
+	String(); // конструктор без параметров
+	String(const string& producer, const string& description, const string& name, const int& count, const string& fio, const int& cost);  //конструктор с параметрами
+	String(const String& scr); // конструктор копирования
+	~String();
 
-	void print1(ostream& os) const override {			// для вывода в консоль
-		Orchestra::print1(os);
-		os << "Производитель:" << producer << endl;
-		os << "Краткое описание:" << description << endl;
-	}
-	void print2(ostream& os) const override {			// для вывода в файл
-		Orchestra::print2(os);
-		os << producer << endl;
-		os << description << endl;
-	}
+	void set_producer(string producer);
+	string get_producer();
+
+	void set_description(string description);
+	string get_description();
+
+	void display() override ;
+	void change_info() override;
+	void save_to_file(ostream&) override;
+	void load_from_file(istream&) override;
 };
 
